@@ -16,22 +16,15 @@ import org.openscience.cdk.inchi.InChIGeneratorFactory
 import org.slf4j.LoggerFactory
 
 fun main() {
-    embeddedServer(
-        Netty,
-        port = 8000,
-        host = "0.0.0.0",
-        module = Application::module,
-    ).start(wait = true)
+    embeddedServer(Netty, host = "0.0.0.0", port = 8000) {
+        routing {
+            get("/") { call.respondText("InChI render service using CDK, https://github.com/ebraminio/Chemistoid") }
+            get(Regex("/InChI=.*")) { render(call) }
+        }
+    }.start(wait = true)
 }
 
 private val logger = LoggerFactory.getLogger("org.wikimedia.chemistoid") as Logger
-
-private fun Application.module() {
-    routing {
-        get("/") { call.respondText("InChI render service using CDK, source: https://github.com/ebraminio/Chemistoid") }
-        get(Regex("/InChI=.*")) { render(call) }
-    }
-}
 
 private suspend fun render(call: RoutingCall) {
     val inchi = "InChI=${call.request.uri.split("InChI=")[1]}"
