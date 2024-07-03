@@ -28,7 +28,7 @@ private val logger = LoggerFactory.getLogger("org.wikimedia.chemistoid") as Logg
 
 private fun Application.module() {
     routing {
-        get("/") { call.respondText("InChI render service using CDK") }
+        get("/") { call.respondText("InChI render service using CDK, source: https://github.com/ebraminio/Chemistoid") }
         get(Regex("/InChI=.*")) { render(call) }
     }
 }
