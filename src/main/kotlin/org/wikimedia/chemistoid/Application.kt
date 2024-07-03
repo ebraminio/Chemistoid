@@ -3,7 +3,6 @@ package org.wikimedia.chemistoid
 import ch.qos.logback.classic.Logger
 import io.github.dan2097.jnainchi.InchiStatus
 import io.ktor.http.*
-import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.server.request.*
