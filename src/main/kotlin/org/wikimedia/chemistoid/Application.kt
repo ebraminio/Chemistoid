@@ -41,7 +41,7 @@ private suspend fun render(call: RoutingCall) {
 
     val ret = structure.status
     if (ret == InchiStatus.ERROR) return call.respondText("failed to render", status = HttpStatusCode.BadRequest)
-    val depiction = DepictionGenerator().withAtomColors().depict(structure.atomContainer)
+    val depiction = DepictionGenerator().depict(structure.atomContainer)
     call.respondBytesWriter(ContentType.Image.SVG) {
         depiction.writeTo("svg", toOutputStream())
     }
